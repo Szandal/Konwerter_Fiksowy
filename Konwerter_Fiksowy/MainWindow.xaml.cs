@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Konwerter_Fiksowy.Fiksy;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,20 @@ namespace Konwerter_Fiksowy
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            string expression = TB.Text.ToString();
+            Console.Out.Write(expression);
+            switch (CB.Text.ToString())
+            {
+                case "In - Post":
+                    Postfiks postfiks = new Postfiks();
+                    Lab.Content=postfiks.Infiks2Prefiks(expression);
+                    break;
+
+            }
         }
     }
 }

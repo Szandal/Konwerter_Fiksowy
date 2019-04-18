@@ -7,6 +7,18 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
+        <Button Content="Button" HorizontalAlignment="Left" Margin="618,116,0,0" VerticalAlignment="Top" Width="76" Click="Button_Click"/>
+        <TextBox Name="TB" HorizontalAlignment="Left" Height="23" Margin="54,45,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
+        <Label Name="Lab" Content="Label" HorizontalAlignment="Left" Margin="54,116,0,0" VerticalAlignment="Top"/>
+        <ComboBox Name="CB" HorizontalAlignment="Left" Margin="575,186,0,0" VerticalAlignment="Top" Width="120">
+            <ComboBoxItem>Pre - In</ComboBoxItem>
+            <ComboBoxItem>Pre - Post</ComboBoxItem>
+            <ComboBoxItem>Post- In</ComboBoxItem>
+            <ComboBoxItem>Post- Pre</ComboBoxItem>
+            <ComboBoxItem>In- Pre</ComboBoxItem>
+            <ComboBoxItem>In- Post</ComboBoxItem>
+        </ComboBox>
         
+
     </Grid>
 </Window>
