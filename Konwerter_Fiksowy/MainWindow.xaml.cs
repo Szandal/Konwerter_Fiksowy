@@ -36,6 +36,24 @@ namespace Konwerter_Fiksowy
                     Postfiks postfiks = new Postfiks();
                     Lab.Content=postfiks.Infiks2Postfiks(expression);
                     break;
+                case "In - Pre":
+                    Prefiks prefiks = new Prefiks();
+                    Lab.Content = prefiks.Infiks2Prefiks(expression);
+                    break;
+                case "Pre - In":
+     
+                    break;
+                case "Pre - Post":
+
+                    break;
+                case "Post - In":
+
+                    break;
+                case "Post - Pre":
+   
+                    break;
+
+
 
             }
         }
