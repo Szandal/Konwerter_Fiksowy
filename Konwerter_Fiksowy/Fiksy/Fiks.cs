@@ -25,7 +25,7 @@ namespace Konwerter_Fiksowy.Fiksy
                     return 2;
                 case '^':
                     return 3;
-                case '(':
+                case '(':     
                     return 4;
                 default:
                     throw new Exception();
