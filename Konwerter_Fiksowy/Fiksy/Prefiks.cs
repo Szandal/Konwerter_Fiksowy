@@ -31,7 +31,7 @@ namespace Konwerter_Fiksowy
                 }
             }
             Postfiks postfiks = new Postfiks();
-             string result= postfiks.Infiks2Prefiks(newtemp);
+             string result= postfiks.Infiks2Postfiks(newtemp);
 
             char[] arr1 = result.ToCharArray();
             Array.Reverse(arr1);
