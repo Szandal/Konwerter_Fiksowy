@@ -36,7 +36,7 @@ namespace Konwerter_Fiksowy.Fiksy
                     int rank = GetPriorytet(symbol);
                     while (Stock.Count != 0)
                     {
-                        if(rank > GetPriorytet(Stock.First()))
+                        if(rank < GetPriorytet(Stock.First()))
                         {
                             result += GetFirst();
                         }
