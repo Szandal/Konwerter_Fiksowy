@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,52 +9,50 @@ namespace Konwerter_Fiksowy.Fiksy
 {
     class Postfiks :Fiks
     {
-        public string Infiks2Prefiks(string expression)
+        public string Infiks2Postfiks(string expression)
         {
             string result = "";
             foreach(char symbol in expression)
             {
-                if (!isOperator(symbol))
+                if (!IsOperator(symbol))
                 {
                     result += symbol;
                 }
                 else if (symbol == '(')
                 {
                     Stock.AddFirst(symbol);
+                    Debug.Write(Stock.First);
                 }
                 else if (symbol == ')')
                 {
-                    foreach (char c in Stock)
+                    while (Stock.First() != '(')
                     {
-                        if (c != '(')
-                        {
-                            result += GetFirst();
-                        }
-                        else
-                        {
-                            break;
-                        }
+                        result += GetFirst();
                     }
+                    GetFirst(); //wyrzucenie nawiasu
                 }
-                else if (isOperator(symbol))
+                else if (IsOperator(symbol))
                 {
-                    foreach (char c in Stock)
+                    int rank = GetPriorytet(symbol);
+                    while (Stock.Count != 0)
                     {
-                        int rank = GetPriorytet(symbol);
-                        if (rank > GetPriorytet(c))
+                        if(rank > GetPriorytet(Stock.First()))
                         {
                             result += GetFirst();
                         }
                         else
                         {
-                            Stock.AddFirst(symbol);
                             break;
                         }
-                    }
+                    }  
+                    Stock.AddFirst(symbol);                    
                 }
             }
-            while(Stock.Count > 0)
+            Debug.Write(Stock.Count);
+            //Debug.Write(Stock.First());
+            while (Stock.Count > 0)
             {
+               
                 result += GetFirst();
             }
             return result;

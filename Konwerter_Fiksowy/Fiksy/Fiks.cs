@@ -31,14 +31,14 @@ namespace Konwerter_Fiksowy.Fiksy
                     throw new Exception();
             }
         }
-        protected bool isOperator(char symbol)
+        protected bool IsOperator(char symbol)
         {
             return (!Char.IsLetterOrDigit(symbol));
         }
 
         protected string GetFirst()
         {
-            string c = Stock.First +"";
+            string c = Stock.First() +"";
             Stock.RemoveFirst();
             return c;
         }
