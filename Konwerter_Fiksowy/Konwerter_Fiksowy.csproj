@@ -64,6 +64,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Fiksy\Fiks.cs" />
+    <Compile Include="Fiksy\Infiks.cs" />
     <Compile Include="Fiksy\Postfiks.cs" />
     <Compile Include="Fiksy\Prefiks.cs" />
     <Compile Include="MainWindow.xaml.cs">

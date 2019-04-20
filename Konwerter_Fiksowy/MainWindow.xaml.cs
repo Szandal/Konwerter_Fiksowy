@@ -29,25 +29,26 @@ namespace Konwerter_Fiksowy
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            Infiks infiks = new Infiks();
+            Prefiks prefiks = new Prefiks();
+            Postfiks postfiks = new Postfiks();
             string expression = TB.Text.ToString();
             switch (CB.Text.ToString())
             {
                 case "In - Post":
-                    Postfiks postfiks = new Postfiks();
                     Lab.Content=postfiks.Infiks2Postfiks(expression);
                     break;
                 case "In - Pre":
-                    Prefiks prefiks = new Prefiks();
                     Lab.Content = prefiks.Infiks2Prefiks(expression);
                     break;
                 case "Pre - In":
-     
+                    Lab.Content = infiks.Prefiks2Infiks(expression);
                     break;
                 case "Pre - Post":
 
                     break;
-                case "Post - In":
-
+                case "Post - In":                    
+                    Lab.Content = infiks.Postfiks2Infiks(expression);
                     break;
                 case "Post - Pre":
    
