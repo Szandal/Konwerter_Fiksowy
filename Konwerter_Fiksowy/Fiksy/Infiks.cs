@@ -10,21 +10,24 @@ namespace Konwerter_Fiksowy.Fiksy
     {
         public string Postfiks2Infiks(string expression)
         {
-            string[] tab = new string[expression.Length];
-            int tabRef = 0;
-            foreach (char symbol in expression)
+            string temp;
+            LinkedList<string> result = new LinkedList<string>();
+            for (int i = 0; i < expression.Length; i++)
             {
-                if (!IsOperator(symbol))
+                if (!IsOperator(expression[i]))
                 {
-                    tab[tabRef++] = symbol + "";
+                    result.AddLast(expression[i] + "");
                 }
                 else
                 {
-                    tab[tabRef - 2] = "(" + tab[tabRef - 2] + symbol + tab[tabRef - 1] + ")"; // (a+b)
-                    tabRef--;
+                    temp = result.Last();
+                    result.RemoveLast();
+                    temp = "(" + result.Last() + expression[i] + temp + ")";
+                    result.RemoveLast();
+                    result.AddLast(temp);
                 }
             }
-            return tab[0];
+            return result.First() ;
         }
         public string Prefiks2Infiks(string expression)
         {

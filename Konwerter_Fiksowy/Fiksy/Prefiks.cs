@@ -40,5 +40,11 @@ namespace Konwerter_Fiksowy
             return ReversResult;
             }
   
+        public string Postfix2Prefix(string expression)
+        {
+            Infiks infiks = new Infiks();
+            expression = infiks.Postfiks2Infiks(expression);
+            return Infiks2Prefiks(expression);
+        }
     }
 }

@@ -45,13 +45,13 @@ namespace Konwerter_Fiksowy
                     Lab.Content = infiks.Prefiks2Infiks(expression);
                     break;
                 case "Pre - Post":
-
+                    Lab.Content = postfiks.Prefisk2Postfix(expression);
                     break;
                 case "Post - In":                    
                     Lab.Content = infiks.Postfiks2Infiks(expression);
                     break;
                 case "Post - Pre":
-   
+                    Lab.Content = prefiks.Postfix2Prefix(expression);   
                     break;
 
 

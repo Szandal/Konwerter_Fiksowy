@@ -57,7 +57,13 @@ namespace Konwerter_Fiksowy.Fiksy
             }
             return result;
         }
-       
+
+        public string Prefisk2Postfix(string expression)
+        {
+            Infiks infiks = new Infiks();
+            expression = infiks.Prefiks2Infiks(expression);
+            return Infiks2Postfiks(expression);
+        }
 
     }
 }
