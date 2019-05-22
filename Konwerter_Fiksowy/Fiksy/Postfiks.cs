@@ -9,6 +9,13 @@ namespace Konwerter_Fiksowy.Fiksy
 {
     class Postfiks :Fiks
     {
+
+        List<Step> Steps;
+        public Postfiks(List<Step> Steps) : base()
+        {
+
+            this.Steps = Steps;
+        }
         public string Infiks2Postfiks(string expression)
         {
             string result = "";
@@ -47,6 +54,13 @@ namespace Konwerter_Fiksowy.Fiksy
                     }  
                     Stock.AddFirst(symbol);                    
                 }
+                string StockTemp="";
+                foreach (var item in Stock)
+                {
+                    StockTemp += item;
+                }
+                Steps.Add(new Step(result, StockTemp));
+
             }
             Debug.Write(Stock.Count);
             //Debug.Write(Stock.First());
@@ -54,13 +68,14 @@ namespace Konwerter_Fiksowy.Fiksy
             {
                
                 result += GetFirst();
-            }
+                
+            }Steps.Add(new Step(result, ""));
             return result;
         }
 
         public string Prefisk2Postfix(string expression)
         {
-            Infiks infiks = new Infiks();
+            Infiks infiks = new Infiks(Steps);
             expression = infiks.Prefiks2Infiks(expression);
             return Infiks2Postfiks(expression);
         }

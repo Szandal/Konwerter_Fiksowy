@@ -1,62 +1,139 @@
 ﻿using Konwerter_Fiksowy.Fiksy;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
+using MahApps.Metro.Controls;
+using System.Collections.Generic;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
+using System.Text.RegularExpressions;
+using MahApps.Metro.Controls.Dialogs;
 
 namespace Konwerter_Fiksowy
 {
     /// <summary>
     /// Logika interakcji dla klasy MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : MetroWindow
     {
+        List<Step> Steps = new List<Step>();
+
         public MainWindow()
         {
+
             InitializeComponent();
+
+            StepsListView.ItemsSource = Steps;
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+
+
+
+        private void TextBox_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
         {
-            Infiks infiks = new Infiks();
-            Prefiks prefiks = new Prefiks();
-            Postfiks postfiks = new Postfiks();
-            string expression = TB.Text.ToString();
-            switch (CB.Text.ToString())
+            if (e.Key == Key.Enter )
             {
-                case "In - Post":
-                    Lab.Content=postfiks.Infiks2Postfiks(expression);
-                    break;
-                case "In - Pre":
-                    Lab.Content = prefiks.Infiks2Prefiks(expression);
-                    break;
-                case "Pre - In":
-                    Lab.Content = infiks.Prefiks2Infiks(expression);
-                    break;
-                case "Pre - Post":
-                    Lab.Content = postfiks.Prefisk2Postfix(expression);
-                    break;
-                case "Post - In":                    
-                    Lab.Content = infiks.Postfiks2Infiks(expression);
-                    break;
-                case "Post - Pre":
-                    Lab.Content = prefiks.Postfix2Prefix(expression);   
-                    break;
+                Steps.Clear();
+                Infiks infiks = new Infiks(Steps);
+                Prefiks prefiks = new Prefiks(Steps);
+                Postfiks postfiks = new Postfiks(Steps);
+                if (Check(Expression.Text.ToString()))
+                {
+                    if (BaseInfix.IsChecked == true)
+                    {
+                        if (GoalInfix.IsChecked == true)
+                        {
 
+                            Steps.Add(new Step(Expression.Text.ToString(), ""));
+                            this.ShowMessageAsync("Info", "Base and Goal are the same");
+                        }
+                        else if (GoalPostfix.IsChecked == true)
+                        {
+                            postfiks.Infiks2Postfiks(Expression.Text.ToString());
 
+                        }
+                        else if (GoalPrefix.IsChecked == true)
+                        {
+                            prefiks.Infiks2Prefiks(Expression.Text.ToString());
+                        }
+                        else
+                        {
+                            this.ShowMessageAsync("Error", "Base and Goal error");
+                         
+                        }
+
+                    }
+
+                    if (BasePostfix.IsChecked == true)
+                    {
+                        if (GoalInfix.IsChecked == true)
+                        {
+
+                            infiks.Postfiks2Infiks(Expression.Text.ToString());
+
+                        }
+                        else if (GoalPostfix.IsChecked == true)
+                        {
+                            Steps.Add(new Step(Expression.Text.ToString(), ""));
+                            this.ShowMessageAsync("Info", "Base and Goal are the same");
+
+                        }
+                        else if (GoalPrefix.IsChecked == true)
+                        {
+                            prefiks.Postfix2Prefix(Expression.Text.ToString());
+                        }
+                        else
+                        {
+                            this.ShowMessageAsync("Error", "Base and Goal error");
+                        }
+
+                    }
+
+                    if (BasePrefix.IsChecked == true)
+                    {
+                        if (GoalInfix.IsChecked == true)
+                        {
+
+                            infiks.Prefiks2Infiks(Expression.Text.ToString());
+
+                        }
+                        else if (GoalPostfix.IsChecked == true)
+                        {
+                            postfiks.Prefisk2Postfix(Expression.Text.ToString());
+
+                        }
+                        else if (GoalPrefix.IsChecked == true)
+                        {
+                            Steps.Add(new Step(Expression.Text.ToString(),""));
+                            this.ShowMessageAsync("Info", "Base and Goal are the same");
+                        }
+                        else
+                        {
+                            this.ShowMessageAsync("Error", "Base and Goal error");
+                        }
+
+                    }
+                    StepsListView.Items.Refresh();
+                }
 
             }
+          
+
+        }
+
+        private bool Check(string Text)
+        {
+            Regex regex = new Regex(@"[a-zA-Z0-9///*-/+/(/)^]{1,20}");
+            int numberOf = regex.Matches(Text).Count;
+            Match match = regex.Match(Text);
+      
+
+            if (!match.Success)
+            {
+                return false;
+            }
+            if (numberOf!=1)
+            {
+                return false;
+            }
+            return true;
         }
     }
 }

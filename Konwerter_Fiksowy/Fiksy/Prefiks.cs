@@ -9,7 +9,13 @@ namespace Konwerter_Fiksowy
 {
     class Prefiks : Fiks
     {
-            public string Infiks2Prefiks(string expression)
+        List<Step> Steps;
+        public Prefiks(List<Step> Steps) : base()
+        {
+
+            this.Steps = Steps;
+        }
+        public string Infiks2Prefiks(string expression)
             {
             char[] arr = expression.ToCharArray();
             Array.Reverse(arr);
@@ -30,19 +36,25 @@ namespace Konwerter_Fiksowy
                     newtemp += temp.ElementAt(i);
                 }
             }
-            Postfiks postfiks = new Postfiks();
+            Steps.Add(new Step(newtemp, "Revers"));
+            Postfiks postfiks = new Postfiks(Steps);
              string result= postfiks.Infiks2Postfiks(newtemp);
-
+           
             char[] arr1 = result.ToCharArray();
             Array.Reverse(arr1);
             string ReversResult = new string(arr1);
-
+            Steps.Add(new Step(ReversResult, "Revers"));
             return ReversResult;
             }
   
         public string Postfix2Prefix(string expression)
         {
-            Infiks infiks = new Infiks();
+            if (!CheckPostfix(expression))
+            {
+                Steps.Add(new Step("ERRRR", "Revers"));
+                return "";
+            }
+            Infiks infiks = new Infiks(Steps);
             expression = infiks.Postfiks2Infiks(expression);
             return Infiks2Prefiks(expression);
         }

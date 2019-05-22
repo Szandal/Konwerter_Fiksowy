@@ -1,24 +1,62 @@
-﻿<Window x:Class="Konwerter_Fiksowy.MainWindow"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Konwerter_Fiksowy"
-        mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+﻿<Controls:MetroWindow x:Class="Konwerter_Fiksowy.MainWindow"
+                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                      xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
+                      xmlns:iconPacks="http://metro.mahapps.com/winfx/xaml/iconpacks"
+                      Title="Konwerter Fiksowy"
+                      BorderThickness="0" 
+                      GlowBrush="Black"
+                      ResizeMode="CanResizeWithGrip"
+                      WindowTransitionsEnabled="False"
+                      WindowStartupLocation="CenterScreen">
+
+
     <Grid>
-        <Button Content="Button" HorizontalAlignment="Left" Margin="618,116,0,0" VerticalAlignment="Top" Width="76" Click="Button_Click"/>
-        <TextBox Name="TB" HorizontalAlignment="Left" Height="23" Margin="54,45,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="120"/>
-        <Label Name="Lab" Content="Label" HorizontalAlignment="Left" Margin="54,116,0,0" VerticalAlignment="Top"/>
-        <ComboBox Name="CB" HorizontalAlignment="Left" Margin="575,186,0,0" VerticalAlignment="Top" Width="120">
-            <ComboBoxItem>Pre - In</ComboBoxItem>
-            <ComboBoxItem>Pre - Post</ComboBoxItem>
-            <ComboBoxItem>Post - In</ComboBoxItem>
-            <ComboBoxItem>Post - Pre</ComboBoxItem>
-            <ComboBoxItem>In - Pre</ComboBoxItem>
-            <ComboBoxItem>In - Post</ComboBoxItem>
-        </ComboBox>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition  />
+            <ColumnDefinition   />
+            <ColumnDefinition />
+
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto"   />
+            <RowDefinition Height="1*"   />
+        </Grid.RowDefinitions>
+
+        <Label Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center">Wyrażenie Arytmrtyczne</Label>
+        <Label Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" >Podstawa</Label>
+        <Label Grid.Row="0" Grid.Column="2" HorizontalAlignment="Center" >Docelowy</Label>
+
+        <TextBox Name="Expression" Grid.Row="1" Grid.Column="0" Margin="5,5,5,5" KeyDown="TextBox_KeyDown"></TextBox>
         
+        <StackPanel Grid.Column="1" Orientation="Horizontal" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <RadioButton Name="BaseInfix"  GroupName="BaseFix" Margin="5,5,5,5" Content="Infix" IsChecked="True"/>
+            <RadioButton Name="BasePostfix" GroupName="BaseFix" Margin="5,5,5,5"  Content="Postfix" />
+            <RadioButton Name="BasePrefix" GroupName="BaseFix" Margin="5,5,5,5"  Content="Prefix " />
+        </StackPanel >
+        <StackPanel Grid.Column="3" Orientation="Horizontal"  Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <RadioButton   Name="GoalInfix" GroupName="GoalFix" Margin="5,5,5,5" Content="Infix" IsChecked="True"/>
+            <RadioButton  Name="GoalPostfix"  GroupName="GoalFix" Margin="5,5,5,5" Content="Postfix" />
+            <RadioButton Name="GoalPrefix"  GroupName="GoalFix" Margin="5,5,5,5" Content="Prefix " />
+        </StackPanel >
+
+
+
+        <ListView Name="StepsListView"  Grid.ColumnSpan="3" Grid.Row="2" VerticalAlignment="Stretch">
+     
+            <ListView.View>
+   
+                <GridView>
+                    <GridViewColumn Header="OutPut" DisplayMemberBinding="{Binding OutPut}" />
+                    <GridViewColumn Header="Stos" DisplayMemberBinding="{Binding Stos}" />
+                </GridView>
+            </ListView.View>
+        </ListView>
+        
+   
+
 
     </Grid>
-</Window>
+</Controls:MetroWindow>

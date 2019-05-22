@@ -42,5 +42,105 @@ namespace Konwerter_Fiksowy.Fiksy
             Stock.RemoveFirst();
             return c;
         }
+
+        private class oper
+        {
+            public int position;
+            public int number;
+            public oper(int position)
+            {
+                this.position = position;
+                number = 2;
+            }
+            
+        }
+        protected bool Checkprefix(string text)
+        {
+            LinkedList<oper> operatorList = new LinkedList<oper>();
+            for (int i = 0; i < text.Length; i++)
+            {
+                if (IsOperator(text.ElementAt(i)))
+                {
+                    if (operatorList.Count != 0)
+                    {
+                        operatorList.Last().number--;
+                        if (operatorList.Last().number == 0)
+                        {
+                            operatorList.RemoveLast();
+                        }
+                    }
+
+                    operatorList.AddLast(new oper(i));
+                }
+                else
+                {
+                    if (operatorList.Count == 0)
+                    {
+                        return false;
+                    }
+                    else
+                    {
+                        operatorList.Last().number--;
+                        if (operatorList.Last().number == 0)
+                        {
+                            operatorList.RemoveLast();
+                        }
+                    }
+                }
+            }
+            if (operatorList.Count == 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        protected bool CheckPostfix(string text)
+        {
+            LinkedList<oper> operatorList = new LinkedList<oper>();
+            for(int i = text.Length - 1; i >= 0; i--)
+            {
+                if (IsOperator(text.ElementAt(i)))
+                {
+                    if(operatorList.Count != 0)
+                    {
+                        operatorList.Last().number--;
+                        if (operatorList.Last().number == 0)
+                        {
+                            operatorList.RemoveLast();
+                        }
+                    }
+                        
+                    operatorList.AddLast(new oper(i));
+                }
+                else
+                {
+                    if (operatorList.Count == 0)
+                    {
+                        return false;
+                    }
+                    else
+                    {
+                        operatorList.Last().number--;
+                        if(operatorList.Last().number==0)
+                        {
+                            operatorList.RemoveLast();
+                        }
+                    }
+                }
+            }
+            if (operatorList.Count == 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
+
 }
