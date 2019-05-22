@@ -52,6 +52,7 @@ namespace Konwerter_Fiksowy.Fiksy
         }
         public string Prefiks2Infiks(string expression)
         {
+
             string temp;
             LinkedList<string> result = new LinkedList<string>();
             Steps.Add(new Step("", "Reverse"));

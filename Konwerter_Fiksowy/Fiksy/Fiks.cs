@@ -54,8 +54,14 @@ namespace Konwerter_Fiksowy.Fiksy
             }
             
         }
-        protected bool Checkprefix(string text)
+        public bool Checkprefix(string text)
         {
+
+            if (Char.IsLetterOrDigit(text[0]))
+            {
+                return false;
+            }
+
             LinkedList<oper> operatorList = new LinkedList<oper>();
             for (int i = 0; i < text.Length; i++)
             {
@@ -98,8 +104,14 @@ namespace Konwerter_Fiksowy.Fiksy
             }
         }
 
-        protected bool CheckPostfix(string text)
+        public bool CheckPostfix(string text)
         {
+
+            if (Char.IsLetterOrDigit(text[text.Length-1]))
+            {
+                return false;
+            }
+
             LinkedList<oper> operatorList = new LinkedList<oper>();
             for(int i = text.Length - 1; i >= 0; i--)
             {

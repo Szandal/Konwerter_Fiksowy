@@ -28,7 +28,7 @@ namespace Konwerter_Fiksowy
 
         private void TextBox_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
         {
-            if (e.Key == Key.Enter )
+            if (e.Key == Key.Enter)
             {
                 Steps.Clear();
                 Infiks infiks = new Infiks(Steps);
@@ -56,65 +56,89 @@ namespace Konwerter_Fiksowy
                         else
                         {
                             this.ShowMessageAsync("Error", "Base and Goal error");
-                         
+
                         }
 
                     }
 
                     if (BasePostfix.IsChecked == true)
                     {
-                        if (GoalInfix.IsChecked == true)
+                        if (!prefiks.CheckPostfix(Expression.Text.ToString()))
                         {
 
-                            infiks.Postfiks2Infiks(Expression.Text.ToString());
+                            this.ShowMessageAsync("Error", "Incorrect postfix structure");
 
-                        }
-                        else if (GoalPostfix.IsChecked == true)
-                        {
-                            Steps.Add(new Step(Expression.Text.ToString(), ""));
-                            this.ShowMessageAsync("Info", "Base and Goal are the same");
-
-                        }
-                        else if (GoalPrefix.IsChecked == true)
-                        {
-                            prefiks.Postfix2Prefix(Expression.Text.ToString());
                         }
                         else
                         {
-                            this.ShowMessageAsync("Error", "Base and Goal error");
+                            if (GoalInfix.IsChecked == true)
+                            {
+                                infiks.Postfiks2Infiks(Expression.Text.ToString());
+
+                            }
+                            else if (GoalPostfix.IsChecked == true)
+                            {
+                                Steps.Add(new Step(Expression.Text.ToString(), ""));
+                                this.ShowMessageAsync("Info", "Base and Goal are the same");
+
+                            }
+                            else if (GoalPrefix.IsChecked == true)
+                            {
+                                prefiks.Postfix2Prefix(Expression.Text.ToString());
+                            }
+                            else
+                            {
+                                this.ShowMessageAsync("Error", "Base and Goal error");
+                            }
                         }
+ 
 
                     }
 
                     if (BasePrefix.IsChecked == true)
                     {
-                        if (GoalInfix.IsChecked == true)
+                        if (!prefiks.Checkprefix(Expression.Text.ToString()))
                         {
 
-                            infiks.Prefiks2Infiks(Expression.Text.ToString());
+                            this.ShowMessageAsync("Error", "Incorrect prefix structure");
 
-                        }
-                        else if (GoalPostfix.IsChecked == true)
-                        {
-                            postfiks.Prefisk2Postfix(Expression.Text.ToString());
-
-                        }
-                        else if (GoalPrefix.IsChecked == true)
-                        {
-                            Steps.Add(new Step(Expression.Text.ToString(),""));
-                            this.ShowMessageAsync("Info", "Base and Goal are the same");
                         }
                         else
                         {
-                            this.ShowMessageAsync("Error", "Base and Goal error");
+
+                            if (GoalInfix.IsChecked == true)
+                            {
+
+                                infiks.Prefiks2Infiks(Expression.Text.ToString());
+
+                            }
+                            else if (GoalPostfix.IsChecked == true)
+                            {
+                                postfiks.Prefisk2Postfix(Expression.Text.ToString());
+
+                            }
+                            else if (GoalPrefix.IsChecked == true)
+                            {
+                                Steps.Add(new Step(Expression.Text.ToString(), ""));
+                                this.ShowMessageAsync("Info", "Base and Goal are the same");
+                            }
+                            else
+                            {
+                                this.ShowMessageAsync("Error", "Base and Goal error");
+                            }
                         }
 
-                    }
-                    StepsListView.Items.Refresh();
-                }
 
+                    }
+
+                }
+                else
+                {
+                    this.ShowMessageAsync("Info", "Incorrect arithmetic expression");
+                }
+                StepsListView.Items.Refresh();
             }
-          
+
 
         }
 
@@ -123,13 +147,13 @@ namespace Konwerter_Fiksowy
             Regex regex = new Regex(@"[a-zA-Z0-9///*-/+/(/)^]{1,20}");
             int numberOf = regex.Matches(Text).Count;
             Match match = regex.Match(Text);
-      
+
 
             if (!match.Success)
             {
                 return false;
             }
-            if (numberOf!=1)
+            if (numberOf != 1)
             {
                 return false;
             }
