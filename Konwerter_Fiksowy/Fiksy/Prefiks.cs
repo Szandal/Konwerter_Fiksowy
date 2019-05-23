@@ -51,7 +51,7 @@ namespace Konwerter_Fiksowy
         {
             if (!CheckPostfix(expression))
             {
-                Steps.Add(new Step("ERRRR", "Revers"));
+                Steps.Add(new Step("", "Revers"));
                 return "";
             }
             Infiks infiks = new Infiks(Steps);
