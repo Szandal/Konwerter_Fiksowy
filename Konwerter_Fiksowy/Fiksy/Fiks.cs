@@ -27,8 +27,10 @@ namespace Konwerter_Fiksowy.Fiksy
                     return 3;
                 case '(':
                     return 0;
+                case ')':
+                    return 4;
                 default:
-                    throw new Exception();
+                    return -1;
             }
         }
         protected bool IsOperator(char symbol)
@@ -72,7 +74,7 @@ namespace Konwerter_Fiksowy.Fiksy
             }
             
         }
-        public bool Checkprefix(string text)
+        public bool CheckPrefix(string text)
         {
 
             if (!IsBaseOperator(text[0]))
@@ -124,7 +126,6 @@ namespace Konwerter_Fiksowy.Fiksy
 
         public bool CheckPostfix(string text)
         {
-
             if (!IsBaseOperator(text[text.Length-1]))
             {
                 return false;
@@ -169,6 +170,68 @@ namespace Konwerter_Fiksowy.Fiksy
             else
             {
                 return false;
+            }
+        }
+
+        public bool CheckInfix(string text)
+        {
+            bool wasBracket = false;
+            bool wasOperator = false;
+            int brackets = 0;
+            for(int i=0; i < text.Length; i++)
+            {
+                if (IsOperator(text[i]))
+                {
+                    
+                    int prior = GetPriorytet(text[i]);
+                    if(prior<0)
+                    {
+                        return false;
+                    }
+                    else {
+                        if (prior == 0)
+                        {
+                            brackets++;
+                            wasBracket = true;
+                        }
+                        if(prior == 4)
+                        {
+                            brackets--;
+                            if(brackets<0)
+                            {
+                                return false;
+                            }
+                            wasBracket = true;
+                        }
+                        
+                        if (prior > 0 && prior < 4 && wasOperator && !wasBracket)
+                        {
+                            return false;
+                        }
+                        if (prior != 0 && prior != 4)
+                        {
+                            wasBracket = false;
+                        }
+                    }
+                    wasOperator = true;
+                }
+                else
+                {
+                    wasOperator = false;
+                }
+            }
+            if (wasOperator && !wasBracket)
+            {
+                return false;
+            }
+            else
+            {
+                if (brackets == 0)
+                {
+                    return true;
+                }
+                else
+                    return false;
             }
         }
     }

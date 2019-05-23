@@ -39,27 +39,30 @@ namespace Konwerter_Fiksowy
                 {
                     if (BaseInfix.IsChecked == true)
                     {
-                        if (GoalInfix.IsChecked == true)
+                        if(!infiks.CheckInfix(Expression.Text.ToString()))
                         {
-
-                            Steps.Add(new Step(Expression.Text.ToString(), ""));
-                            this.ShowMessageAsync("Info", "Base and Goal are the same");
-                        }
-                        else if (GoalPostfix.IsChecked == true)
-                        {
-                            postfiks.Infiks2Postfiks(Expression.Text.ToString());
-
-                        }
-                        else if (GoalPrefix.IsChecked == true)
-                        {
-                            prefiks.Infiks2Prefiks(Expression.Text.ToString());
+                            this.ShowMessageAsync("Error", "Incorrect infix structure");
                         }
                         else
                         {
-                            this.ShowMessageAsync("Error", "Base and Goal error");
-
+                            if (GoalInfix.IsChecked == true)
+                            {
+                                Steps.Add(new Step(Expression.Text.ToString(), ""));
+                                this.ShowMessageAsync("Info", "Base and Goal are the same");
+                            }
+                            else if (GoalPostfix.IsChecked == true)
+                            {
+                                postfiks.Infiks2Postfiks(Expression.Text.ToString());
+                            }
+                            else if (GoalPrefix.IsChecked == true)
+                            {
+                                prefiks.Infiks2Prefiks(Expression.Text.ToString());
+                            }
+                            else
+                            {
+                                this.ShowMessageAsync("Error", "Base and Goal error");
+                            }
                         }
-
                     }
 
                     if (BasePostfix.IsChecked == true)
@@ -98,7 +101,7 @@ namespace Konwerter_Fiksowy
 
                     if (BasePrefix.IsChecked == true)
                     {
-                        if (!prefiks.Checkprefix(Expression.Text.ToString()))
+                        if (!prefiks.CheckPrefix(Expression.Text.ToString()))
                         {
 
                             this.ShowMessageAsync("Error", "Incorrect prefix structure");
