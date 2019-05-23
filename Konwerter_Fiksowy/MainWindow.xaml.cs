@@ -28,118 +28,126 @@ namespace Konwerter_Fiksowy
 
         private void TextBox_KeyDown(object sender, System.Windows.Input.KeyEventArgs e)
         {
-            if (e.Key == Key.Enter)
+            try
             {
-                Steps.Clear();
-                Infiks infiks = new Infiks(Steps);
-                Prefiks prefiks = new Prefiks(Steps);
-                Postfiks postfiks = new Postfiks(Steps);
-
-                if (Check(Expression.Text.ToString()))
+                if (e.Key == Key.Enter)
                 {
-                    if (BaseInfix.IsChecked == true)
+                    Steps.Clear();
+                    Infiks infiks = new Infiks(Steps);
+                    Prefiks prefiks = new Prefiks(Steps);
+                    Postfiks postfiks = new Postfiks(Steps);
+
+                    if (Check(Expression.Text.ToString()))
                     {
-                        if (GoalInfix.IsChecked == true)
-                        {
-
-                            Steps.Add(new Step(Expression.Text.ToString(), ""));
-                            this.ShowMessageAsync("Info", "Base and Goal are the same");
-                        }
-                        else if (GoalPostfix.IsChecked == true)
-                        {
-                            postfiks.Infiks2Postfiks(Expression.Text.ToString());
-
-                        }
-                        else if (GoalPrefix.IsChecked == true)
-                        {
-                            prefiks.Infiks2Prefiks(Expression.Text.ToString());
-                        }
-                        else
-                        {
-                            this.ShowMessageAsync("Error", "Base and Goal error");
-
-                        }
-
-                    }
-
-                    if (BasePostfix.IsChecked == true)
-                    {
-                        if (!prefiks.CheckPostfix(Expression.Text.ToString()))
-                        {
-
-                            this.ShowMessageAsync("Error", "Incorrect postfix structure");
-
-                        }
-                        else
+                        if (BaseInfix.IsChecked == true)
                         {
                             if (GoalInfix.IsChecked == true)
                             {
-                                infiks.Postfiks2Infiks(Expression.Text.ToString());
 
+                                Steps.Add(new Step(Expression.Text.ToString(), ""));
+                                this.ShowMessageAsync("Info", "Base and Goal are the same");
                             }
                             else if (GoalPostfix.IsChecked == true)
                             {
-                                Steps.Add(new Step(Expression.Text.ToString(), ""));
-                                this.ShowMessageAsync("Info", "Base and Goal are the same");
+                                postfiks.Infiks2Postfiks(Expression.Text.ToString());
 
                             }
                             else if (GoalPrefix.IsChecked == true)
                             {
-                                prefiks.Postfix2Prefix(Expression.Text.ToString());
+                                prefiks.Infiks2Prefiks(Expression.Text.ToString());
                             }
                             else
                             {
                                 this.ShowMessageAsync("Error", "Base and Goal error");
+
                             }
+
                         }
- 
+
+                        if (BasePostfix.IsChecked == true)
+                        {
+                            if (!prefiks.CheckPostfix(Expression.Text.ToString()))
+                            {
+
+                                this.ShowMessageAsync("Error", "Incorrect postfix structure");
+
+                            }
+                            else
+                            {
+                                if (GoalInfix.IsChecked == true)
+                                {
+                                    infiks.Postfiks2Infiks(Expression.Text.ToString());
+
+                                }
+                                else if (GoalPostfix.IsChecked == true)
+                                {
+                                    Steps.Add(new Step(Expression.Text.ToString(), ""));
+                                    this.ShowMessageAsync("Info", "Base and Goal are the same");
+
+                                }
+                                else if (GoalPrefix.IsChecked == true)
+                                {
+                                    prefiks.Postfix2Prefix(Expression.Text.ToString());
+                                }
+                                else
+                                {
+                                    this.ShowMessageAsync("Error", "Base and Goal error");
+                                }
+                            }
+
+
+                        }
+
+                        if (BasePrefix.IsChecked == true)
+                        {
+                            if (!prefiks.Checkprefix(Expression.Text.ToString()))
+                            {
+
+                                this.ShowMessageAsync("Error", "Incorrect prefix structure");
+
+                            }
+                            else
+                            {
+
+                                if (GoalInfix.IsChecked == true)
+                                {
+
+                                    infiks.Prefiks2Infiks(Expression.Text.ToString());
+
+                                }
+                                else if (GoalPostfix.IsChecked == true)
+                                {
+                                    postfiks.Prefisk2Postfix(Expression.Text.ToString());
+
+                                }
+                                else if (GoalPrefix.IsChecked == true)
+                                {
+                                    Steps.Add(new Step(Expression.Text.ToString(), ""));
+                                    this.ShowMessageAsync("Info", "Base and Goal are the same");
+                                }
+                                else
+                                {
+                                    this.ShowMessageAsync("Error", "Base and Goal error");
+                                }
+                            }
+
+
+                        }
 
                     }
-
-                    if (BasePrefix.IsChecked == true)
+                    else
                     {
-                        if (!prefiks.Checkprefix(Expression.Text.ToString()))
-                        {
-
-                            this.ShowMessageAsync("Error", "Incorrect prefix structure");
-
-                        }
-                        else
-                        {
-
-                            if (GoalInfix.IsChecked == true)
-                            {
-
-                                infiks.Prefiks2Infiks(Expression.Text.ToString());
-
-                            }
-                            else if (GoalPostfix.IsChecked == true)
-                            {
-                                postfiks.Prefisk2Postfix(Expression.Text.ToString());
-
-                            }
-                            else if (GoalPrefix.IsChecked == true)
-                            {
-                                Steps.Add(new Step(Expression.Text.ToString(), ""));
-                                this.ShowMessageAsync("Info", "Base and Goal are the same");
-                            }
-                            else
-                            {
-                                this.ShowMessageAsync("Error", "Base and Goal error");
-                            }
-                        }
-
-
+                        this.ShowMessageAsync("Info", "Incorrect arithmetic expression");
                     }
+                    StepsListView.Items.Refresh();
 
                 }
-                else
-                {
-                    this.ShowMessageAsync("Info", "Incorrect arithmetic expression");
-                }
-                StepsListView.Items.Refresh();
-                
             }
+            catch
+            {
+                this.ShowMessageAsync("Hmmm", "Something broke down, but we took care of it :)");
+            }
+  
 
 
         }
