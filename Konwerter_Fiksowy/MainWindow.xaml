@@ -8,15 +8,15 @@
                       GlowBrush="Black"
                       ResizeMode="CanResizeWithGrip"
                       WindowTransitionsEnabled="False"
-                      WindowStartupLocation="CenterScreen">
+                      WindowStartupLocation="CenterScreen" Width="700" Height="500" MinWidth="700" MinHeight="500" >
 
 
     <Grid>
 
         <Grid.ColumnDefinitions>
-            <ColumnDefinition  />
-            <ColumnDefinition   />
-            <ColumnDefinition />
+            <ColumnDefinition MinWidth="150"  />
+            <ColumnDefinition MinWidth="150"   />
+            <ColumnDefinition MinWidth="150" />
 
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
@@ -25,9 +25,9 @@
             <RowDefinition Height="1*"   />
         </Grid.RowDefinitions>
 
-        <Label Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center">Wyrażenie Arytmrtyczne</Label>
-        <Label Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" >Podstawa</Label>
-        <Label Grid.Row="0" Grid.Column="2" HorizontalAlignment="Center" >Docelowy</Label>
+        <Label Grid.Row="0" Grid.Column="0" HorizontalAlignment="Center" >Arithmetic expression</Label>
+        <Label Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center" >Base</Label>
+        <Label Grid.Row="0" Grid.Column="2" HorizontalAlignment="Center" >Goal</Label>
 
         <TextBox Name="Expression" Grid.Row="1" Grid.Column="0" Margin="5,5,5,5" KeyDown="TextBox_KeyDown"></TextBox>
         
@@ -43,9 +43,9 @@
         </StackPanel >
 
 
-
-        <ListView Name="StepsListView"  Grid.ColumnSpan="3" Grid.Row="2" VerticalAlignment="Stretch">
      
+        <ListView Name="StepsListView"  Grid.ColumnSpan="3" Grid.Row="2" VerticalAlignment="Stretch"  ScrollViewer.VerticalScrollBarVisibility="Visible">
+          
             <ListView.View>
    
                 <GridView>

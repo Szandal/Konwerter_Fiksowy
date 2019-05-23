@@ -34,6 +34,7 @@ namespace Konwerter_Fiksowy
                 Infiks infiks = new Infiks(Steps);
                 Prefiks prefiks = new Prefiks(Steps);
                 Postfiks postfiks = new Postfiks(Steps);
+
                 if (Check(Expression.Text.ToString()))
                 {
                     if (BaseInfix.IsChecked == true)
@@ -137,6 +138,7 @@ namespace Konwerter_Fiksowy
                     this.ShowMessageAsync("Info", "Incorrect arithmetic expression");
                 }
                 StepsListView.Items.Refresh();
+                
             }
 
 
@@ -144,7 +146,7 @@ namespace Konwerter_Fiksowy
 
         private bool Check(string Text)
         {
-            Regex regex = new Regex(@"[a-zA-Z0-9///*-/+/(/)^]{1,20}");
+            Regex regex = new Regex(@"^[a-zA-Z0-9///*-/+/(/)/^]{1,20}\Z");
             int numberOf = regex.Matches(Text).Count;
             Match match = regex.Match(Text);
 

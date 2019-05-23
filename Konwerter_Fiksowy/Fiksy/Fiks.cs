@@ -36,6 +36,24 @@ namespace Konwerter_Fiksowy.Fiksy
             return (!Char.IsLetterOrDigit(symbol));
         }
 
+        protected bool IsBaseOperator (char symbol)
+        {
+            switch (symbol)
+            {
+                case '+':
+                case '*':
+                case '/':
+                case '-':
+                case '^':
+                    return true;
+                default:
+                    return false;
+            }
+
+        }
+
+        
+
         protected string GetFirst()
         {
             string c = Stock.First() +"";
@@ -57,7 +75,7 @@ namespace Konwerter_Fiksowy.Fiksy
         public bool Checkprefix(string text)
         {
 
-            if (Char.IsLetterOrDigit(text[0]))
+            if (!IsBaseOperator(text[0]))
             {
                 return false;
             }
@@ -107,7 +125,7 @@ namespace Konwerter_Fiksowy.Fiksy
         public bool CheckPostfix(string text)
         {
 
-            if (Char.IsLetterOrDigit(text[text.Length-1]))
+            if (!IsBaseOperator(text[text.Length-1]))
             {
                 return false;
             }
