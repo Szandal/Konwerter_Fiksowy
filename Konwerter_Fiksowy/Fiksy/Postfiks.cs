@@ -55,6 +55,8 @@ namespace Konwerter_Fiksowy.Fiksy
                     Stock.AddFirst(symbol);                    
                 }
                 string StockTemp="";
+
+
                 foreach (var item in Stock)
                 {
                     StockTemp += item;
@@ -69,7 +71,8 @@ namespace Konwerter_Fiksowy.Fiksy
                
                 result += GetFirst();
                 
-            }Steps.Add(new Step(result, ""));
+            }
+            Steps.Add(new Step(result, ""));
             return result;
         }
 

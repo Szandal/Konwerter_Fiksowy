@@ -19,7 +19,7 @@ namespace Konwerter_Fiksowy.Fiksy
             string temp;
             LinkedList<string> result = new LinkedList<string>();
             string tempStos = "";
-                string tempOut = "";
+            string tempOut = "";
             for (int i = 0; i < expression.Length; i++)
             {
                 
